@@ -111,7 +111,7 @@ const Testimonials = () => {
 
   return (
     <section className="bg-[#050508] text-white py-24 overflow-hidden select-none">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mb-6">
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-gray-400">
           Client Voices
         </h2>
