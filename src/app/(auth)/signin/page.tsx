@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 import { FaGoogle, FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
 
-const SignUp = () => {
+const LogIn = () => {
   const [isVisible, setIsVisible] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
   const [showPass, setShowpass] = useState<boolean>(false);
@@ -52,20 +52,6 @@ const SignUp = () => {
 
         {/* Input Form */}
         <form onSubmit={e => e.preventDefault()} className="space-y-5">
-          {/* Name Field */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-gray-400 tracking-wider uppercase">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              required
-              placeholder="Enter your name"
-              className="w-full px-4 py-3 bg-[#050508]/80 border border-gray-900 rounded-xl text-sm font-light text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gray-700 focus:bg-[#13151b]/80 transition-all duration-300"
-            />
-          </div>
-
           {/* Email Field */}
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-gray-400 tracking-wider uppercase">
@@ -109,20 +95,6 @@ const SignUp = () => {
             </div>
           </div>
 
-          {/* Image URL Field */}
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-gray-400 tracking-wider uppercase">
-              Photo URL
-            </label>
-            <input
-              type="url"
-              name="image"
-              required
-              placeholder="Enter your photo url"
-              className="w-full px-4 py-3 bg-[#050508]/80 border border-gray-900 rounded-xl text-sm font-light text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gray-700 focus:bg-[#13151b]/80 transition-all duration-300"
-            />
-          </div>
-
           {/* Main Submit Button */}
           <button
             type="submit"
@@ -157,10 +129,10 @@ const SignUp = () => {
           {' '}
           you have alrady account?{' '}
           <Link
-            href={'/signin'}
+            href={'/signup'}
             className=" underline cursor-pointer hover:text-gray-400"
           >
-            LogIn
+            SignUp
           </Link>{' '}
         </h1>
       </div>
@@ -168,4 +140,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default LogIn;
