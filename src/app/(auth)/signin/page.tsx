@@ -1,13 +1,21 @@
 'use client';
 
+import { authClient } from '@/lib/auth-client';
 import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 import { FaGoogle, FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+
+interface UserData {
+  email: string;
+  password: string;
+}
 
 const LogIn = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const formRef = useRef<HTMLDivElement>(null);
   const [showPass, setShowpass] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,6 +36,31 @@ const LogIn = () => {
     return () => observer.disconnect();
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    const formData = new FormData(e.currentTarget);
+    const users = Object.fromEntries(formData.entries()) as unknown as UserData;
+
+    const { data, error } = await authClient.signIn.email({
+      email: users.email,
+      password: users.password,
+    });
+
+    setLoading(false);
+
+    if (data) {
+      toast.success('LogIn SuccessFull!');
+      window.location.reload();
+      window.location.href = '/';
+    }
+
+    if (error) {
+      toast.error('LogIn Failde !');
+      console.log(error);
+    }
+  };
+
   return (
     <div
       ref={formRef}
@@ -43,15 +76,12 @@ const LogIn = () => {
         {/* Header Section */}
         <div className="text-center mb-8">
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-gray-400">
-            Create An Account
+            LogIn An Account
           </h1>
-          <p className="text-xs text-gray-500 mt-1.5 font-light">
-            Join Luxury to access exclusive digital assets.
-          </p>
         </div>
 
         {/* Input Form */}
-        <form onSubmit={e => e.preventDefault()} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Email Field */}
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-gray-400 tracking-wider uppercase">
@@ -100,7 +130,7 @@ const LogIn = () => {
             type="submit"
             className="w-full mt-2 py-3 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.25)] cursor-pointer"
           >
-            Sign Up
+            {loading ? 'Create LogIn' : 'LogIn'}
           </button>
         </form>
 

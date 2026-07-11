@@ -1,13 +1,23 @@
 'use client';
 
+import { authClient } from '@/lib/auth-client';
 import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 import { FaGoogle, FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+
+interface UserData {
+  name: string;
+  password: string;
+  email: string;
+  image: string;
+}
 
 const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
   const [showPass, setShowpass] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -27,6 +37,30 @@ const SignUp = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const users = Object.fromEntries(formData.entries()) as unknown as UserData;
+
+    const { data, error } = await authClient.signUp.email({
+      email: users.email,
+      password: users.password,
+      name: users.name,
+      image: users.image,
+    });
+
+    setLoading(false);
+
+    if (data) {
+      toast.success('Account Create Successfully!');
+      window.location.reload();
+      window.location.href = '/signin';
+    }
+    if (error) toast.error('Failde Account');
+  };
 
   return (
     <div
@@ -51,7 +85,7 @@ const SignUp = () => {
         </div>
 
         {/* Input Form */}
-        <form onSubmit={e => e.preventDefault()} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Name Field */}
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-gray-400 tracking-wider uppercase">
@@ -126,9 +160,10 @@ const SignUp = () => {
           {/* Main Submit Button */}
           <button
             type="submit"
-            className="w-full mt-2 py-3 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.25)] cursor-pointer"
+            disabled={loading}
+            className="w-full mt-2 py-3 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.25)] cursor-pointer disabled:bg-blue-800 disabled:cursor-not-allowed"
           >
-            Sign Up
+            {loading ? 'Creating Account...' : 'Sign Up'}
           </button>
         </form>
 
@@ -141,6 +176,7 @@ const SignUp = () => {
           <div className="flex-grow border-t border-gray-900"></div>
         </div>
 
+        {/* Social Buttons Grid */}
         <div className="grid grid-cols-2 gap-4">
           <button className="flex items-center justify-center gap-2 py-3 bg-[#050508]/80 border border-gray-900 hover:border-gray-700 rounded-xl text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 cursor-pointer active:scale-95">
             <FaGoogle className="w-4 h-4 text-gray-400 group-hover:text-white" />
@@ -153,16 +189,15 @@ const SignUp = () => {
           </button>
         </div>
 
-        <h1 className="text-center py-4 text-lg">
-          {' '}
-          you have alrady account?{' '}
+        <h3 className="text-center mt-6 text-xs text-gray-400">
+          Already have an account?{' '}
           <Link
-            href={'/signin'}
-            className=" underline cursor-pointer hover:text-gray-400"
+            href="/signin"
+            className="text-white underline cursor-pointer hover:text-gray-300 transition-colors"
           >
             LogIn
-          </Link>{' '}
-        </h1>
+          </Link>
+        </h3>
       </div>
     </div>
   );
