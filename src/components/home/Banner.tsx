@@ -1,28 +1,54 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
 const Banner = () => {
   const [imageAnimate, setImageAnimate] = useState<boolean>(false);
   const [textAnimate, setTextAnimate] = useState<boolean>(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setImageAnimate(true);
+    let textTimeout: NodeJS.Timeout;
 
-    const textTimeout = setTimeout(() => {
-      setTextAnimate(true);
-    }, 500);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setImageAnimate(true);
 
-    return () => clearTimeout(textTimeout);
+          textTimeout = setTimeout(() => {
+            setTextAnimate(true);
+          }, 500);
+        } else {
+          setImageAnimate(false);
+          setTextAnimate(false);
+          if (textTimeout) clearTimeout(textTimeout);
+        }
+      },
+      {
+        threshold: 0.15,
+      },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (textTimeout) clearTimeout(textTimeout);
+    };
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#050508] text-white overflow-hidden flex items-center justify-center px-4 py-16">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen bg-[#050508] text-white overflow-hidden flex items-center justify-center px-4 py-16 select-none"
+    >
       <div className="absolute inset-0 z-0 flex items-center justify-center">
         <div
-          className={`relative w-full h-full max-w-7xl max-h-[85vh] mx-auto overflow-hidden lg:rounded-3xl border border-white/5 transition-all duration-1000 ease-out transform ${
+          className={`relative w-full h-full max-w-7xl max-h-[85vh] mx-auto overflow-hidden lg:rounded-3xl border border-white/5 transition-all cubic-bezier(0.16, 1, 0.3, 1) duration-1000 transform ${
             imageAnimate ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
           }`}
         >
@@ -33,14 +59,13 @@ const Banner = () => {
             priority
             className="object-cover object-center"
           />
-
           <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80" />
         </div>
       </div>
 
       <div className="relative z-10 w-full max-w-3xl mx-auto text-center flex flex-col items-center justify-center">
         <h1
-          className={`text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white drop-shadow-[0_4px_24px_rgba(255,255,255,0.2)] transition-all duration-1000 transform ${
+          className={`text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white drop-shadow-[0_4px_24px_rgba(255,255,255,0.2)] transition-all cubic-bezier(0.16, 1, 0.3, 1) duration-1000 transform ${
             textAnimate
               ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-8'
@@ -50,7 +75,7 @@ const Banner = () => {
         </h1>
 
         <p
-          className={`mt-6 text-xs sm:text-sm md:text-base text-gray-300 max-w-xl leading-relaxed transition-all duration-1000 transform ${
+          className={`mt-6 text-xs sm:text-sm md:text-base text-gray-300 max-w-xl leading-relaxed transition-all cubic-bezier(0.16, 1, 0.3, 1) duration-1000 transform ${
             textAnimate
               ? 'opacity-100 translate-y-0 delay-300'
               : 'opacity-0 translate-y-8'
@@ -61,7 +86,7 @@ const Banner = () => {
         </p>
 
         <div
-          className={`mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto transition-all duration-1000 transform ${
+          className={`mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto transition-all cubic-bezier(0.16, 1, 0.3, 1) duration-1000 transform ${
             textAnimate
               ? 'opacity-100 translate-y-0 delay-500'
               : 'opacity-0 translate-y-8'
