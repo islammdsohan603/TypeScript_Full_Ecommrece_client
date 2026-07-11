@@ -59,7 +59,7 @@ const Footer = () => {
           }`}
         >
           <h2 className="text-3xl md:text-4xl font-bold tracking-widest text-white">
-            LUMINA
+            Luxury
           </h2>
           <p className="text-xs md:text-sm text-gray-500 font-light max-w-xs leading-relaxed">
             Defining the intersection of technology and luxury through curated
