@@ -73,7 +73,7 @@ const FaqSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#050508] text-white py-10 px-4 sm:px-6 md:px-8 overflow-hidden select-none"
+      className="bg-[#050508] text-white pb-20 px-4 sm:px-6 md:px-8 overflow-hidden select-none"
     >
       <div className="max-w-3xl mx-auto flex flex-col items-center">
         {/* Section Heading */}
