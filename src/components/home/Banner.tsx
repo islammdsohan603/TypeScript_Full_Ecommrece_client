@@ -5,89 +5,78 @@ import Image from 'next/image';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
 const Banner = () => {
-  const [animate, setAnimate] = useState<boolean>(false);
+  const [imageAnimate, setImageAnimate] = useState<boolean>(false);
+  const [textAnimate, setTextAnimate] = useState<boolean>(false);
 
   useEffect(() => {
-    setAnimate(true);
+    setImageAnimate(true);
+
+    const textTimeout = setTimeout(() => {
+      setTextAnimate(true);
+    }, 500);
+
+    return () => clearTimeout(textTimeout);
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#050508] text-white overflow-hidden px-4 py-20 lg:py-0 flex items-center">
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-linear-to-b from-blue-900/10 via-transparent to-transparent blur-[120px] pointer-events-none" />
-
-      {/* Main Container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        {/* Left Content */}
-        <div className="text-center lg:text-left">
-          <h1
-            className={`text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent bg-linear-to-b from-white to-gray-400 drop-shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-1000 transform ${
-              animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
-            The Future of Tech,
-            <br />
-            Reimagined.
-          </h1>
-
-          <p
-            className={`mt-6 text-sm md:text-base text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed transition-all duration-1000 delay-300 transform ${
-              animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
-            Experience unparalleled performance and uncompromising design.
-            <br className="hidden sm:inline" />
-            Nexus brings the next generation of hardware directly to your
-            workspace.
-          </p>
-
-          <div
-            className={`mt-8 flex flex-wrap justify-center lg:justify-start gap-4 transition-all duration-1000 delay-500 transform ${
-              animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
-            <button className="px-6 py-3 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white text-sm font-semibold rounded-lg flex items-center gap-2 shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all duration-300 cursor-pointer">
-              Shop Now
-              <FaArrowRightLong className="w-4 h-4" />
-            </button>
-
-            <button className="px-6 py-3 bg-gray-900/60 hover:bg-gray-800 border border-gray-800 text-gray-300 text-sm font-semibold rounded-lg transition-all duration-300 cursor-pointer">
-              Explore Ecosystem
-            </button>
-          </div>
-        </div>
-
-        {/* Right Image */}
+    <section className="relative min-h-screen bg-[#050508] text-white overflow-hidden flex items-center justify-center px-4 py-16">
+      <div className="absolute inset-0 z-0 flex items-center justify-center">
         <div
-          className={`w-full transition-all duration-1000 delay-700 transform ${
-            animate
-              ? 'opacity-100 translate-y-0 scale-100'
-              : 'opacity-0 translate-y-16 scale-95'
+          className={`relative w-full h-full max-w-7xl max-h-[85vh] mx-auto overflow-hidden lg:rounded-3xl border border-white/5 transition-all duration-1000 ease-out transform ${
+            imageAnimate ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
           }`}
         >
-          <div className="relative rounded-2xl border border-gray-900 bg-linear-to-b from-gray-900/20 to-black/40 p-1 backdrop-blur-sm shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-            <div className="relative overflow-hidden rounded-xl aspect-[16/10] bg-[#090a10]">
-              <Image
-                src="/laptop.avif"
-                alt="Nexus Pro X Laptop"
-                fill
-                priority
-                className="object-cover object-center opacity-90"
-              />
+          <Image
+            src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=1920&auto=format&fit=crop"
+            alt="Luxury Watch Background"
+            fill
+            priority
+            className="object-cover object-center"
+          />
 
-              <div className="absolute inset-0 bg-linear-to-t from-[#050508] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80" />
+        </div>
+      </div>
 
-              <div className="absolute bottom-6 left-6 z-20 text-left">
-                <span className="inline-block px-3 py-1 text-[10px] uppercase tracking-widest font-medium bg-gray-800/80 border border-gray-700 rounded-full text-gray-400 mb-2">
-                  Flagship Series
-                </span>
+      <div className="relative z-10 w-full max-w-3xl mx-auto text-center flex flex-col items-center justify-center">
+        <h1
+          className={`text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white drop-shadow-[0_4px_24px_rgba(255,255,255,0.2)] transition-all duration-1000 transform ${
+            textAnimate
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
+          Elegance Redefined
+        </h1>
 
-                <h3 className="text-xl md:text-2xl font-bold tracking-tight text-white">
-                  Nexus Pro X
-                </h3>
-              </div>
-            </div>
-          </div>
+        <p
+          className={`mt-6 text-xs sm:text-sm md:text-base text-gray-300 max-w-xl leading-relaxed transition-all duration-1000 transform ${
+            textAnimate
+              ? 'opacity-100 translate-y-0 delay-300'
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
+          Experience the fusion of timeless craftsmanship and futuristic design.
+          Curated for the modern vanguard.
+        </p>
+
+        <div
+          className={`mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto transition-all duration-1000 transform ${
+            textAnimate
+              ? 'opacity-100 translate-y-0 delay-500'
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
+          {/* Shop Collection Button */}
+          <button className="w-full sm:w-auto px-8 py-3.5 bg-blue-600 hover:bg-blue-500 active:scale-95 text-white text-sm font-semibold rounded-xl flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(37,99,235,0.35)] transition-all duration-300 cursor-pointer">
+            Shop Collection
+            <FaArrowRightLong className="w-4 h-4" />
+          </button>
+
+          {/* View Lookbook Glassmorphism Button */}
+          <button className="w-full sm:w-auto px-8 py-3.5 bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 text-gray-200 text-sm font-semibold rounded-xl backdrop-blur-md transition-all duration-300 cursor-pointer">
+            View Lookbook
+          </button>
         </div>
       </div>
     </section>
