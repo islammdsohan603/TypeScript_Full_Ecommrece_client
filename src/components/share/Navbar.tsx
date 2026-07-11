@@ -1,10 +1,11 @@
 'use client';
+
 import Link from 'next/link';
 import { ShoppingCart, CircleUserRound, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { useSession } from '@/lib/auth-client';
-
 import { Avatar } from '@heroui/react';
+
 interface NavLink {
   name: string;
   path: string;
@@ -17,7 +18,7 @@ interface NavIcon {
   path: string;
 }
 
-const navLinks: NavLink[] = [
+const initialNavLinks: NavLink[] = [
   { name: 'Home', path: '/' },
   { name: 'Products', path: '/products' },
   { name: 'About', path: '/about' },
@@ -33,9 +34,13 @@ const Navbar: React.FC = () => {
   const { data: session, isPending } = useSession();
   const user = session?.user;
 
+  const currentNavLinks = user
+    ? [...initialNavLinks, { name: 'Dashboard', path: '/dashboard' }]
+    : initialNavLinks;
+
   return (
     <div className="bg-[#09090d] sticky top-0 z-50 text-white p-4 shadow-md">
-      <div className="w-11/12  max-w-7xl mx-auto">
+      <div className="w-11/12 max-w-7xl mx-auto">
         <header className="flex items-center justify-between w-full">
           {/* Logo */}
           <Link
@@ -48,7 +53,7 @@ const Navbar: React.FC = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <ul className="flex space-x-6 font-medium">
-              {navLinks.map(link => (
+              {currentNavLinks.map(link => (
                 <li
                   key={link.name}
                   className="hover:text-gray-400 transition-colors duration-300"
@@ -67,16 +72,22 @@ const Navbar: React.FC = () => {
                 <div className="h-8 w-20 rounded-xl bg-orange-200/20" />
               </div>
             ) : user ? (
-              <div className=" flex items-center gap-4">
-                <ShoppingCart className="cursor-pointer" />
-                <Avatar>
-                  <Avatar.Image
-                    alt={user?.name || 'User Profile'}
-                    src={user?.image || undefined}
-                    className=" cursor-pointer object-cover w-10 h-10 rounded-full"
-                  />
-                  <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
-                </Avatar>
+              <div className="flex items-center gap-4">
+                <Link href="/cart">
+                  <ShoppingCart className="cursor-pointer hover:text-gray-400 transition-colors duration-300" />
+                </Link>
+                <Link href="/profile">
+                  <Avatar>
+                    <Avatar.Image
+                      alt={user?.name || 'User Profile'}
+                      src={user?.image || undefined}
+                      className="cursor-pointer object-cover w-10 h-10 rounded-full"
+                    />
+                    <Avatar.Fallback>
+                      {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                    </Avatar.Fallback>
+                  </Avatar>
+                </Link>
               </div>
             ) : (
               <ul className="flex space-x-4">
@@ -91,8 +102,28 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center z-50">
+          {/* Mobile Right Controls (Cart & Profile or Burger Button) */}
+          <div className="md:hidden flex items-center gap-4 z-50">
+            {!isPending && user && (
+              <div className="flex items-center gap-3">
+                <Link href="/cart">
+                  <ShoppingCart className="w-6 h-6 cursor-pointer text-white" />
+                </Link>
+                <Link href="/profile">
+                  <Avatar className="w-8 h-8">
+                    <Avatar.Image
+                      alt={user?.name || 'User Profile'}
+                      src={user?.image || undefined}
+                      className="object-cover rounded-full"
+                    />
+                    <Avatar.Fallback>
+                      {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                    </Avatar.Fallback>
+                  </Avatar>
+                </Link>
+              </div>
+            )}
+
             <button
               className="text-white cursor-pointer focus:outline-none transition-transform duration-300 structural-btn"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -118,7 +149,7 @@ const Navbar: React.FC = () => {
       >
         {/* Mobile Navigation Links */}
         <ul className="flex flex-col items-center space-y-6 text-xl font-semibold mb-8">
-          {navLinks.map((link, index) => (
+          {currentNavLinks.map((link, index) => (
             <li
               key={link.name}
               style={{
@@ -137,34 +168,36 @@ const Navbar: React.FC = () => {
           ))}
         </ul>
 
-        <hr className="w-1/3 border-gray-700 mb-8" />
-
-        {/* Mobile Icons */}
-        <ul className="flex space-x-8">
-          {navProductsIcons.map((item, index) => (
-            <li
-              key={item.id}
-              style={{
-                transitionDelay: isMobileMenuOpen
-                  ? `${(navLinks.length + index) * 100}ms`
-                  : '0ms',
-              }}
-              className={`hover:text-gray-400 transition-all duration-500 transform ${
-                isMobileMenuOpen
-                  ? 'translate-y-0 opacity-100'
-                  : 'translate-y-4 opacity-0'
-              }`}
-            >
-              <Link
-                href={item.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-label={item.name}
-              >
-                <item.icon className="w-8 h-8" />
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {!user && (
+          <>
+            <hr className="w-1/3 border-gray-700 mb-8" />
+            <ul className="flex space-x-8">
+              {navProductsIcons.map((item, index) => (
+                <li
+                  key={item.id}
+                  style={{
+                    transitionDelay: isMobileMenuOpen
+                      ? `${(currentNavLinks.length + index) * 100}ms`
+                      : '0ms',
+                  }}
+                  className={`hover:text-gray-400 transition-all duration-500 transform ${
+                    isMobileMenuOpen
+                      ? 'translate-y-0 opacity-100'
+                      : 'translate-y-4 opacity-0'
+                  }`}
+                >
+                  <Link
+                    href={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    aria-label={item.name}
+                  >
+                    <item.icon className="w-8 h-8" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </div>
   );
