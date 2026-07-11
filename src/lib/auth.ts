@@ -11,7 +11,7 @@ if (!mongoUri) {
 }
 
 const client = new MongoClient(mongoUri);
-const db = client.db('ecommareseUser');
+const db = client.db('Ecommerce');
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {

@@ -2,7 +2,9 @@
 import Link from 'next/link';
 import { ShoppingCart, CircleUserRound, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { useSession } from '@/lib/auth-client';
 
+import { Avatar } from '@heroui/react';
 interface NavLink {
   name: string;
   path: string;
@@ -28,6 +30,8 @@ const navProductsIcons: NavIcon[] = [
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const { data: session, isPending } = useSession();
+  const user = session?.user;
 
   return (
     <div className="bg-[#09090d] sticky top-0 z-50 text-white p-4 shadow-md">
@@ -57,15 +61,34 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-4">
-            <ul className="flex space-x-4">
-              {navProductsIcons.map(item => (
-                <li key={item.id}>
-                  <Link href={item.path} aria-label={item.name}>
-                    <item.icon className="w-6 h-6 hover:text-gray-400 transition-colors duration-300" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {isPending ? (
+              <div className="flex items-center gap-3 animate-pulse">
+                <div className="h-9 w-9 rounded-full bg-orange-200/20" />
+                <div className="h-8 w-20 rounded-xl bg-orange-200/20" />
+              </div>
+            ) : user ? (
+              <div className=" flex items-center gap-4">
+                <ShoppingCart className="cursor-pointer" />
+                <Avatar>
+                  <Avatar.Image
+                    alt={user?.name || 'User Profile'}
+                    src={user?.image || undefined}
+                    className=" cursor-pointer object-cover w-10 h-10 rounded-full"
+                  />
+                  <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                </Avatar>
+              </div>
+            ) : (
+              <ul className="flex space-x-4">
+                {navProductsIcons.map(item => (
+                  <li key={item.id}>
+                    <Link href={item.path} aria-label={item.name}>
+                      <item.icon className="w-6 h-6 hover:text-gray-400 transition-colors duration-300" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
