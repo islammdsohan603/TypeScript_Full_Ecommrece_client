@@ -23,7 +23,7 @@ const navLinks: NavLink[] = [
 
 const navProductsIcons: NavIcon[] = [
   { name: 'Cart', icon: ShoppingCart, id: 1, path: '/cart' },
-  { name: 'Profile', icon: CircleUserRound, id: 2, path: '/profile' },
+  { name: 'Profile', icon: CircleUserRound, id: 2, path: '/signup' },
 ];
 
 const Navbar: React.FC = () => {
