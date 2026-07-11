@@ -1,6 +1,6 @@
 'use client';
 import { getFeaturedProducts } from '@/db/productsdataapi';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import FeaturedCard from './FeaturedCard';
 import { ArrowRight } from 'lucide-react';
 
@@ -16,13 +16,13 @@ const Featured = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [animate, setAnimate] = useState(false);
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getFeaturedProducts();
         setProducts(data);
-
-        setAnimate(true);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -31,11 +31,40 @@ const Featured = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAnimate(true);
+        } else {
+          setAnimate(false);
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px',
+      },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [products]);
+
   return (
-    <section className="bg-[#050508] text-white py-16 px-4 md:px-8">
+    <section
+      ref={sectionRef}
+      className="bg-[#050508] text-white py-20 px-4 md:px-8 overflow-hidden select-none"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Top Header Section */}
-        <div className="flex items-end justify-between mb-10">
+        <div
+          className={`flex items-end justify-between mb-10 transition-all cubic-bezier(0.16, 1, 0.3, 1) duration-1000 transform ${
+            animate ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'
+          }`}
+        >
           <div>
             <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-transparent bg-clip-text bg-linear-to-b from-white to-gray-400">
               Featured Masterpieces
@@ -51,7 +80,7 @@ const Featured = () => {
             className="group flex items-center gap-1 text-sm font-semibold text-blue-500 hover:text-blue-400 transition-colors"
           >
             View All
-            <ArrowRight />
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
 
