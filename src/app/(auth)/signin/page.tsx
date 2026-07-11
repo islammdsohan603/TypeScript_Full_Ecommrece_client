@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 import { FaGoogle, FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 interface UserData {
   email: string;
@@ -12,6 +13,7 @@ interface UserData {
 }
 
 const LogIn = () => {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const formRef = useRef<HTMLDivElement>(null);
   const [showPass, setShowpass] = useState<boolean>(false);
@@ -50,14 +52,14 @@ const LogIn = () => {
     setLoading(false);
 
     if (data) {
-      toast.success('LogIn SuccessFull!');
-      window.location.reload();
+      toast.success('LogIn Successful!');
+      router.refresh();
       window.location.href = '/';
     }
 
     if (error) {
-      toast.error('LogIn Failde !');
-      console.log(error);
+      toast.error(error.message || 'LogIn Failed!');
+      console.error(error);
     }
   };
 
@@ -128,9 +130,10 @@ const LogIn = () => {
           {/* Main Submit Button */}
           <button
             type="submit"
-            className="w-full mt-2 py-3 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.25)] cursor-pointer"
+            disabled={loading}
+            className="w-full mt-2 py-3 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white text-sm font-semibold rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.25)] cursor-pointer disabled:bg-blue-800 disabled:cursor-not-allowed"
           >
-            {loading ? 'Create LogIn' : 'LogIn'}
+            {loading ? 'Logging In...' : 'LogIn'}
           </button>
         </form>
 
@@ -155,16 +158,15 @@ const LogIn = () => {
           </button>
         </div>
 
-        <h1 className="text-center py-4 text-lg">
-          {' '}
-          you have alrady account?{' '}
+        <h3 className="text-center mt-6 text-sm">
+          Don't have an account?{' '}
           <Link
-            href={'/signup'}
-            className=" underline cursor-pointer hover:text-gray-400"
+            href="/signup"
+            className="text-white underline cursor-pointer hover:text-gray-400"
           >
             SignUp
           </Link>{' '}
-        </h1>
+        </h3>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 import { FaGoogle, FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 interface UserData {
   name: string;
@@ -14,6 +15,7 @@ interface UserData {
 }
 
 const SignUp = () => {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
   const [showPass, setShowpass] = useState<boolean>(false);
@@ -55,11 +57,15 @@ const SignUp = () => {
     setLoading(false);
 
     if (data) {
-      toast.success('Account Create Successfully!');
-      window.location.reload();
-      window.location.href = '/signin';
+      toast.success('Account Created Successfully!');
+      // reload এবং redirect এর ভুল সংশোধন করা হলো
+      router.push('/signin');
     }
-    if (error) toast.error('Failde Account');
+
+    if (error) {
+      toast.error(error.message || 'Failed to create account');
+      console.error(error);
+    }
   };
 
   return (
@@ -189,11 +195,11 @@ const SignUp = () => {
           </button>
         </div>
 
-        <h3 className="text-center mt-6 text-xs text-gray-400">
+        <h3 className="text-center mt-6 text-sm">
           Already have an account?{' '}
           <Link
             href="/signin"
-            className="text-white underline cursor-pointer hover:text-gray-300 transition-colors"
+            className="text-white underline cursor-pointer hover:text-gray-400 transition-colors"
           >
             LogIn
           </Link>
