@@ -3,7 +3,7 @@ import Category from '@/components/productscomponents/Category';
 import PriceCategory from '@/components/productscomponents/PriceCategory';
 import ProdcutCard from '@/components/productscomponents/ProdcutCard';
 
-import { getAllproudctsApi } from '@/db/productsdataapi';
+import { getAllProductsApi } from '@/db/productsdataapi';
 
 interface PageProps {
   searchParams: Promise<{ category?: string; sort?: string }>;
@@ -16,7 +16,7 @@ const ProductsPage = async ({ searchParams }: PageProps) => {
   const currentSort = resolvedParams.sort || '';
 
   // ২. ব্যাকএন্ড থেকে ফিল্টার করা ডাটা আনা
-  const products = await getAllproudctsApi(currentCategory, currentSort);
+  const products = await getAllProductsApi(currentCategory, currentSort);
 
   return (
     <div className="min-h-screen bg-[#050508] text-white py-10">
@@ -39,11 +39,11 @@ const ProductsPage = async ({ searchParams }: PageProps) => {
 
         {/* প্রোডাক্ট লিস্ট গ্রিড */}
         <div className="col-span-3">
-          <h1 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
+          <h1 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-b from-white to-gray-400">
             Curated Digital Collection ({products.length})
           </h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.length > 0 ? (
               products.map(product => (
                 <ProdcutCard key={product._id} product={product} />
@@ -53,7 +53,7 @@ const ProductsPage = async ({ searchParams }: PageProps) => {
                 No products found in this category.
               </p>
             )}
-          </div>
+          </div> */}
         </div>
       </section>
     </div>
