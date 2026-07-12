@@ -3,7 +3,7 @@
 import { useSession, authClient } from '@/lib/auth-client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import {
   FaSignOutAlt,
@@ -16,6 +16,16 @@ const Profilepage = () => {
   const { data: session, isPending } = useSession();
   const router = useRouter();
   const [logoutLoading, setLogoutLoading] = useState(false);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="min-h-screen bg-[#050508]" />;
+  }
 
   const user = session?.user;
 
@@ -37,7 +47,7 @@ const Profilepage = () => {
     <div className="min-h-screen bg-[#050508] text-white flex items-center justify-center px-4 py-16 select-none relative overflow-hidden">
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-80 h-80 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="w-full max-w-md bg-[#0d0e12]/60 border border-gray-950 rounded-2xl p-8 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.5)] transition-all cubic-bezier(0.16, 1, 0.3, 1) duration-1000 transform opacity-0 translate-y-6 scale-98 animate-[fadeInUp_0.8s_ease-out_forwards]">
+      <div className="w-full max-w-md bg-[#0d0e12]/60 border border-gray-950 rounded-2xl p-8 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.5)] transition-all duration-1000 transform opacity-0 translate-y-6 scale-98 animate-[fadeInUp_0.8s_ease-out_forwards]">
         {isPending ? (
           <div className="space-y-6 animate-pulse">
             <div className="flex flex-col items-center space-y-4">
@@ -141,7 +151,6 @@ const Profilepage = () => {
         )}
       </div>
 
-      {/* কাস্টম কি-ফ্রেম অ্যানিমেশনের জন্য গ্লোবাল টেলউইন্ড স্টাইল ইনজেকশন */}
       <style jsx global>{`
         @keyframes fadeInUp {
           from {
