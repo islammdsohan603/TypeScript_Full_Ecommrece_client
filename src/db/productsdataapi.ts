@@ -53,6 +53,7 @@ export const getAllProductsApi = async (
     url.searchParams.append('page', page.toString());
 
     const res = await fetch(url.toString(), { cache: 'no-store' });
+
     if (!res.ok) throw new Error('Failed to fetch products');
 
     return await res.json();

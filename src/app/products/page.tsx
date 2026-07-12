@@ -1,21 +1,25 @@
-// src/app/products/page.tsx
 import Category from '@/components/productscomponents/Category';
 import Pagination from '@/components/productscomponents/Pagination';
 import PriceCategory from '@/components/productscomponents/PriceCategory';
 import ProdcutCard from '@/components/productscomponents/ProdcutCard';
-
 import { getAllProductsApi } from '@/db/productsdataapi';
 
 interface PageProps {
-  searchParams: Promise<{ category?: string; sort?: string }>;
+  searchParams: Promise<{ category?: string; sort?: string; page?: string }>;
 }
 
 const ProductsPage = async ({ searchParams }: PageProps) => {
   const resolvedParams = await searchParams;
   const currentCategory = resolvedParams.category || 'all';
   const currentSort = resolvedParams.sort || '';
+  const currentPage = parseInt(resolvedParams.page || '1') || 1;
 
-  const products = await getAllProductsApi(currentCategory, currentSort);
+  // এপিআই থেকে প্রডাক্টস এবং মেটা ডেটা ডিস্ট্রাকচার করা হলো
+  const { products, meta } = await getAllProductsApi(
+    currentCategory,
+    currentSort,
+    currentPage,
+  );
 
   return (
     <div className="min-h-screen bg-[#050508] text-white py-10">
@@ -37,12 +41,12 @@ const ProductsPage = async ({ searchParams }: PageProps) => {
 
         <div className="col-span-3">
           <h1 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-b from-white to-gray-400">
-            Curated Digital Collection ({products.length})
+            Curated Digital Collection ({meta.totalProducts})
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.length > 0 ? (
-              products.map(product => (
+              products.map((product: any) => (
                 <ProdcutCard key={product._id} product={product} />
               ))
             ) : (
@@ -52,9 +56,14 @@ const ProductsPage = async ({ searchParams }: PageProps) => {
             )}
           </div>
 
-          <div className="pt-10">
-            <Pagination />
-          </div>
+          {meta.totalPages > 1 && (
+            <div className="pt-10 flex justify-center">
+              <Pagination
+                currentPage={meta.currentPage}
+                totalPages={meta.totalPages}
+              />
+            </div>
+          )}
         </div>
       </section>
     </div>
