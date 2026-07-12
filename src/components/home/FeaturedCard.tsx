@@ -8,7 +8,7 @@ interface ProductProps {
     title: string;
     category: string;
     price: number;
-    image: string;
+    images: string;
   };
   index: number;
   animate: boolean;
@@ -30,7 +30,7 @@ const FeaturedCard = ({ product, index, animate }: ProductProps) => {
         {/* Product Image Container */}
         <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#07080a] mb-5 border border-gray-900">
           <Image
-            src={product.image || '/placeholder.png'}
+            src={product.images || '/placeholder.png'}
             alt={product.title}
             fill
             className="object-cover object-center group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
