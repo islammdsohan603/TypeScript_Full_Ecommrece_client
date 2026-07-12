@@ -8,12 +8,14 @@ const PriceCategory = ({ selected }: { selected: string }) => {
 
   const handleSortChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
+
     if (!value) {
       params.delete('sort');
     } else {
       params.set('sort', value);
     }
-    router.push(`?${params.toString()}`);
+
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   return (
@@ -26,6 +28,7 @@ const PriceCategory = ({ selected }: { selected: string }) => {
         <option value="" className="bg-[#0d0e12] text-gray-500">
           Default Sorting
         </option>
+
         <option value="low-to-high" className="bg-[#0d0e12] text-gray-300">
           Price: Low to High
         </option>

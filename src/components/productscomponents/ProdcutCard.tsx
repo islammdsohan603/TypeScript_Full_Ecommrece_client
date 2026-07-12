@@ -16,7 +16,6 @@ interface ProductProps {
 }
 
 const ProdcutCard: React.FC<ProductProps> = ({ product }) => {
-  console.log(product.images);
   return (
     <div className="group relative bg-[#0d0e12]/60 border border-gray-950 hover:border-gray-850 rounded-2xl p-4 transition-all cubic-bezier(0.16, 1, 0.3, 1) duration-500 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden">
       <div className="relative w-full h-48 rounded-xl overflow-hidden bg-[#050508] mb-4">
