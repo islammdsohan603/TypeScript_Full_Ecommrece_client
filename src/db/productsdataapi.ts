@@ -36,20 +36,24 @@ export const getFeaturedProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const getAllproudctsApi = async (): Promise<Product[]> => {
+export const getAllProductsApi = async (
+  category?: string,
+  sort?: string,
+): Promise<any[]> => {
   try {
-    const res = await fetch(`${SERVER_URL}/api/all-products`, {
-      cache: 'no-store',
-    });
+    const url = new URL(`${SERVER_URL}/api/all-products`);
 
-    if (!res.ok) {
-      throw new Error(`HTTP Error! Status: ${res.status}`);
-    }
+    if (category && category !== 'all')
+      url.searchParams.append('category', category);
+    if (sort) url.searchParams.append('sort', sort);
 
-    const data: Product[] = await res.json();
-    return data;
+    const res = await fetch(url.toString(), { cache: 'no-store' });
+
+    if (!res.ok) throw new Error('Failed to fetch products');
+
+    return await res.json();
   } catch (error) {
-    console.error('Error fetching featured products:', error);
-    throw new Error('Failed to fetch featured products');
+    console.error('Error fetching all products:', error);
+    return [];
   }
 };
