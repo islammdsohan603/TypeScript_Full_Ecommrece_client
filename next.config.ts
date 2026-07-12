@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'ibb.co.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+      },
     ],
   },
 };
