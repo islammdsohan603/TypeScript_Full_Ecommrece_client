@@ -1,5 +1,6 @@
 // src/app/products/page.tsx
 import Category from '@/components/productscomponents/Category';
+import Pagination from '@/components/productscomponents/Pagination';
 import PriceCategory from '@/components/productscomponents/PriceCategory';
 import ProdcutCard from '@/components/productscomponents/ProdcutCard';
 
@@ -49,6 +50,10 @@ const ProductsPage = async ({ searchParams }: PageProps) => {
                 No products found in this category.
               </p>
             )}
+          </div>
+
+          <div className="pt-10">
+            <Pagination />
           </div>
         </div>
       </section>
