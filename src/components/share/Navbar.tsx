@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
   const user = session?.user;
 
   const currentNavLinks = user
-    ? [...initialNavLinks, { name: 'Dashboard', path: '/dashboard' }]
+    ? [...initialNavLinks, { name: 'Dashboard', path: '/dashboard/users' }]
     : initialNavLinks;
 
   return (
