@@ -11,9 +11,9 @@ const DashboardSiderbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { icon: House, label: 'Overview', href: '/dashboard/admin' },
+    { icon: House, label: 'Overview', href: '/dashboard/users' },
     { icon: Magnifier, label: 'Add to Cart', href: '/cart' },
-    { icon: Person, label: 'Profile', href: '/profile' },
+    { icon: Person, label: 'Profile', href: '/dashboard/users/profile' },
     { icon: Gear, label: 'Settings', href: '/dashboard/settings' },
   ];
 
@@ -25,6 +25,7 @@ const DashboardSiderbar = () => {
           <Link
             key={item.label}
             href={item.href}
+            onClick={() => setIsOpen(false)}
             className={`flex cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 ${
               isActive
                 ? 'bg-orange-950/30 text-orange-400 border border-orange-950'
@@ -53,12 +54,13 @@ const DashboardSiderbar = () => {
         {navContent}
       </aside>
 
-      <div className="lg:hidden fixed top-4 left-4 z-50">
+      {/* 📱 Mobile View: Drawer Menu Button */}
+      <div className="lg:hidden fixed bottom-6 right-6 z-50">
         <Button
           onPress={() => setIsOpen(true)}
-          className="bg-orange-600 hover:bg-orange-700 text-white rounded-full shadow-lg shadow-black/50 flex items-center gap-2 h-10 px-4 min-w-0"
+          className="bg-orange-600 cursor-pointer hover:bg-orange-700 text-white rounded-full shadow-lg shadow-orange-950/50 flex items-center gap-2 px-4 py-6"
         >
-          <Bars className="size-4" />
+          <Bars className="size-5" />
           <span className="text-xs font-semibold">Menu</span>
         </Button>
       </div>
