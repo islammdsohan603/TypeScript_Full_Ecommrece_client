@@ -65,3 +65,24 @@ export const getAllProductsApi = async (
     };
   }
 };
+
+// details api get
+
+export const getDetailsproductsApi = async (
+  id: string,
+): Promise<Product | null> => {
+  try {
+    const res = await fetch(`${SERVER_URL}/api/details/${id}`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      throw new Error('API request failed');
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error('Details API error:', error);
+    return null;
+  }
+};

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ProductProps {
   product: {
@@ -61,9 +62,11 @@ const ProdcutCard: React.FC<ProductProps> = ({ product }) => {
           )}
         </div>
 
-        <button className="text-xs bg-white text-black px-3.5 py-2 rounded-xl font-medium active:scale-95 transition-all duration-200 cursor-pointer hover:bg-gray-200">
-          Buy Now
-        </button>
+        <Link href={`/details/${product._id}`}>
+          <button className="text-xs bg-white text-black px-3.5 py-2 rounded-xl font-medium active:scale-95 transition-all duration-200 cursor-pointer hover:bg-gray-200">
+            Buy Now
+          </button>
+        </Link>
       </div>
     </div>
   );
