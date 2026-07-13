@@ -1,3 +1,4 @@
+import AddButton from '@/components/AddtoButton/AddButton';
 import { getDetailsproductsApi } from '@/db/productsdataapi';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -174,12 +175,8 @@ const ProductsDetails = async ({ params }: PageProps) => {
 
             <div className="pt-4 flex gap-4">
               {/* add to button */}
-              <button
-                disabled={product.stock === 0}
-                className="flex-1 py-3.5 bg-white text-black text-sm font-semibold rounded-xl transition-all active:scale-[0.99] hover:bg-gray-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Add to Cart
-              </button>
+              <div className="w-full">{<AddButton product={product} />}</div>
+
               <div className="px-4 py-3 bg-[#0d0e12]/60 border border-gray-950 text-[10px] font-mono text-gray-500 rounded-xl flex flex-col justify-center">
                 <span>SKU</span>
                 <span className="text-gray-300 font-sans mt-0.5 font-medium">
