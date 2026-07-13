@@ -6,6 +6,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FaGoogle, FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import Google from '@/components/socalButton/Google';
+import GitHub from '@/components/socalButton/GitHub';
 
 interface UserData {
   name: string;
@@ -184,15 +186,13 @@ const SignUp = () => {
 
         {/* Social Buttons Grid */}
         <div className="grid grid-cols-2 gap-4">
-          <button className="flex items-center justify-center gap-2 py-3 bg-[#050508]/80 border border-gray-900 hover:border-gray-700 rounded-xl text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 cursor-pointer active:scale-95">
-            <FaGoogle className="w-4 h-4 text-gray-400 group-hover:text-white" />
-            <span className="text-xs">Google</span>
-          </button>
+          <div>
+            <Google />
+          </div>
 
-          <button className="flex items-center justify-center gap-2 py-3 bg-[#050508]/80 border border-gray-900 hover:border-gray-700 rounded-xl text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 cursor-pointer active:scale-95">
-            <FaGithub className="w-4 h-4 text-gray-400 group-hover:text-white" />
-            <span className="text-xs">GitHub</span>
-          </button>
+          <div>
+            <GitHub />
+          </div>
         </div>
 
         <h3 className="text-center mt-6 text-sm">
