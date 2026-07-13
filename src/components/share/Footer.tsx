@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { Globe, AtSign } from 'lucide-react';
+import Link from 'next/link';
+import { LiaLinkedin } from 'react-icons/lia';
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -68,18 +70,20 @@ const Footer = () => {
 
           {/* Social Icons */}
           <div className="flex items-center gap-4 text-gray-400">
-            <a
-              href="#"
+            <Link
+              href="https://www.luxepolis.com/"
+              target="_blank"
               className="hover:text-white transition-colors p-1 bg-white/5 rounded-full border border-white/5 hover:border-white/20"
             >
               <Globe className="w-4 h-4" />
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="https://www.linkedin.com/company/modern-luxury/"
+              target="_blank"
               className="hover:text-white transition-colors p-1 bg-white/5 rounded-full border border-white/5 hover:border-white/20"
             >
-              <AtSign className="w-4 h-4" />
-            </a>
+              <LiaLinkedin className="w-4 h-4" />
+            </Link>
           </div>
         </div>
 
@@ -105,12 +109,12 @@ const Footer = () => {
               <ul className="space-y-2.5">
                 {column.links.map(link => (
                   <li key={link}>
-                    <a
+                    <Link
                       href="#"
                       className="text-xs sm:text-sm text-gray-500 hover:text-white font-light transition-colors duration-300 block"
                     >
                       {link}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

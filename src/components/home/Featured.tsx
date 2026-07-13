@@ -3,6 +3,7 @@ import { getFeaturedProducts } from '@/db/productsdataapi';
 import React, { useEffect, useState, useRef } from 'react';
 import FeaturedCard from './FeaturedCard';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface Product {
   _id: string;
@@ -75,13 +76,13 @@ const Featured = () => {
           </div>
 
           {/* View All Link */}
-          <a
+          <Link
             href="/products"
             className="group flex items-center gap-1 text-sm font-semibold text-blue-500 hover:text-blue-400 transition-colors"
           >
             View All
             <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-          </a>
+          </Link>
         </div>
 
         {/* Products Grid */}
