@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import AddButton from '../AddtoButton/AddButton';
 
 interface ProductProps {
   product: {
@@ -68,9 +69,9 @@ const FeaturedCard = ({ product, index, animate }: ProductProps) => {
       </div>
 
       {/* Futuristic Add to Bag Button */}
-      <button className="w-full py-2.5 bg-gray-900/40 group-hover:bg-blue-600 border border-gray-800 group-hover:border-blue-500 text-gray-400 group-hover:text-white text-xs font-semibold rounded-xl transition-all duration-300 active:scale-95 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-        Add to Bag
-      </button>
+      <div className="w-full">
+        <AddButton product={product} />
+      </div>
     </div>
   );
 };
