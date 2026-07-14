@@ -156,6 +156,51 @@ const AddtoCart = async () => {
           );
         })}
       </div>
+
+      {/* 💳 Total Price & Checkout Section */}
+      {cartData.length > 0 && (
+        <div className="mt-8 pt-6 border-t border-orange-950/20 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-[#0d0705]/30 p-6 rounded-2xl border border-orange-950/10 backdrop-blur-md">
+          {/*  left side details*/}
+          <div className="space-y-1">
+            <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              Total Order Value
+            </h2>
+            <div className="flex items-baseline gap-2">
+              <h1 className="text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-linear-to-r from-white via-orange-400 to-amber-500 tracking-tight">
+                $
+                {cartData
+                  .reduce(
+                    (total, item) =>
+                      total + Number(item.price) * (Number(item.quantity) || 1),
+                    0,
+                  )
+                  .toFixed(2)}
+              </h1>
+              <span className="text-xs text-gray-400 font-light">
+                (
+                {cartData.reduce(
+                  (totalQty, item) => totalQty + (Number(item.quantity) || 1),
+                  0,
+                )}{' '}
+                items)
+              </span>
+            </div>
+            <p className="text-[10px] text-gray-500 font-light">
+              Taxes and shipping will be calculated at checkout.
+            </p>
+          </div>
+
+          {/*right side */}
+          <div className="w-full md:w-auto">
+            <Link
+              href="/dashboard/checkout"
+              className="w-full md:w-auto inline-flex items-center justify-center bg-linear-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs md:text-sm font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-orange-950/40 transition-all duration-300 active:scale-[0.98] cursor-pointer tracking-wide uppercase"
+            >
+              Proceed to Checkout ➔
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
