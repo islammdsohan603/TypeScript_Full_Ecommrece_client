@@ -142,7 +142,7 @@ const AddtoCart = async () => {
               <div className="flex items-center gap-2 w-full md:w-auto shrink-0 md:pl-2">
                 {/* View Button */}
                 <Link
-                  href={`/products/${item.productId}`}
+                  href={`/details/${item.productId}`}
                   className="flex-1 md:flex-none px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-gray-200 text-xs font-medium rounded-lg transition-all duration-300 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer min-w-24"
                 >
                   <FaEye className="w-3.5 h-3.5 text-gray-400" />
