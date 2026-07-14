@@ -1,3 +1,5 @@
+import { string } from 'better-auth';
+
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export interface Product {
@@ -84,5 +86,37 @@ export const getDetailsproductsApi = async (
   } catch (error) {
     console.error('Details API error:', error);
     return null;
+  }
+};
+
+// cart data
+
+export interface CartItem {
+  _id: string;
+  productId: string;
+  title: string;
+  price: number;
+  images: string;
+  quantity: number;
+  userEmail: string;
+  addedAt: string;
+}
+
+export const getCartApi = async (email: string): Promise<CartItem[]> => {
+  try {
+    if (!email) return [];
+
+    const res = await fetch(`${SERVER_URL}/api/cart/data?email=${email}`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch cart data');
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error('Cart data fetching error:', error);
+    return [];
   }
 };
