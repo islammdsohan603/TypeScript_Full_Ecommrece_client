@@ -13,7 +13,7 @@ const Google = () => {
       await authClient.signIn.social({
         provider: 'google',
 
-        callbackURL: '/profile',
+        callbackURL: '/dashboard/users/profile',
       });
     } catch (error) {
       console.error('Google Sign-In Error:', error);

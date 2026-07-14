@@ -3,7 +3,7 @@
 import { authClient } from '@/lib/auth-client';
 import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
-import { FaGoogle, FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Google from '@/components/socalButton/Google';
