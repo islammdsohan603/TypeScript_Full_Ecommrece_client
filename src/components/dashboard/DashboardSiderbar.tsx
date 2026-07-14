@@ -12,7 +12,7 @@ const DashboardSiderbar = () => {
 
   const navItems = [
     { icon: House, label: 'Overview', href: '/dashboard/users' },
-    { icon: Magnifier, label: 'Add to Cart', href: '/cart' },
+    { icon: Magnifier, label: 'Add to Cart', href: '/dashboard/users/addcart' },
     { icon: Person, label: 'Profile', href: '/dashboard/users/profile' },
     { icon: Gear, label: 'Settings', href: '/dashboard/settings' },
   ];
