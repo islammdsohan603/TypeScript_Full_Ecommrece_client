@@ -95,7 +95,7 @@ const UsersDashboard = () => {
       {/* হেডার সেকশন */}
       <div className="space-y-1">
         <h1 className="text-xl md:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-linear-to-r from-white via-gray-200 to-gray-500">
-          Welcome back, {user?.name || 'Guest'} ✨
+          Welcome back, {user?.name.toUpperCase() || 'Guest'} ✨
         </h1>
         <p className="text-xs text-gray-500 font-light">
           Here is an overview of your luxury e-commerce account activity.
