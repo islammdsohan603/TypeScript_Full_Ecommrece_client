@@ -120,3 +120,27 @@ export const getCartApi = async (email: string): Promise<CartItem[]> => {
     return [];
   }
 };
+
+// updat Quantity api call
+
+export const updateCartQuantityApi = async (
+  itemId: string,
+  quantity: number,
+) => {
+  try {
+    const res = await fetch(`${SERVER_URL}/api/cart/update-quantity`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ itemId, quantity }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || 'Failed to update quantity via API');
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error in updateCartQuantityApi:', error);
+    throw error;
+  }
+};

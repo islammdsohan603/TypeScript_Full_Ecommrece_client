@@ -25,7 +25,7 @@ const initialNavLinks: NavLink[] = [
 ];
 
 const navProductsIcons: NavIcon[] = [
-  { name: 'Cart', icon: ShoppingCart, id: 1, path: '/cart' },
+  { name: 'Cart', icon: ShoppingCart, id: 1, path: '/dashboard/users/addcart' },
   { name: 'Profile', icon: CircleUserRound, id: 2, path: '/signup' },
 ];
 

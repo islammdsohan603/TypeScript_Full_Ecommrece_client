@@ -6,6 +6,7 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import DeleteCartButton from '@/components/dashboard/DeleteCartButton';
 import { FaEye, FaShoppingBag } from 'react-icons/fa';
+import CartQuantityController from '@/components/dashboard/QuantityContraller';
 
 const AddtoCart = async () => {
   const session = await auth.api.getSession({
@@ -105,29 +106,40 @@ const AddtoCart = async () => {
                       </span>{' '}
                       {formattedDate}
                     </div>
-                    {item.quantity > 1 && (
-                      <div className="text-[11px] text-orange-500/80 font-medium">
-                        Qty: {item.quantity} ({item.price} each)
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
 
-              {/* মিডল সেকশন: অ্যামাউন্ট এবং স্ট্যাটাস */}
-              <div className="flex items-center justify-between md:justify-end gap-8 lg:gap-16 px-2 md:px-0 border-t border-b border-orange-950/10 py-3 md:py-0 md:border-none">
+              {/* মিডল সেকশন: কোয়ান্টিটি কন্ট্রোলার, অ্যামাউন্ট এবং স্ট্যাটাস */}
+              <div className="flex items-center justify-between md:justify-end gap-6 lg:gap-12 px-2 md:px-0 border-t border-b border-orange-950/10 py-3 md:py-0 md:border-none flex-wrap md:flex-nowrap">
+                {/* ➕ / ➖ কোয়ান্টিটি কন্ট্রোলার কম্পোনেন্ট */}
+                <div className="space-y-1">
+                  <p className="text-[10px] text-gray-500 uppercase font-light tracking-wider hidden md:block">
+                    Quantity
+                  </p>
+                  <CartQuantityController
+                    itemId={item._id}
+                    currentQuantity={Number(item.quantity) || 1}
+                  />
+                </div>
+
                 {/* প্রাইস */}
-                <div className="space-y-0.5 md:text-right">
+                <div className="space-y-0.5 md:text-right min-w-[80px]">
                   <p className="text-[10px] text-gray-500 uppercase font-light tracking-wider">
                     Amount
                   </p>
                   <p className="text-base font-bold text-orange-400">
                     ${(item.price * item.quantity).toFixed(2)}
                   </p>
+                  {item.quantity > 1 && (
+                    <p className="text-[9px] text-gray-500 font-light">
+                      (${item.price} each)
+                    </p>
+                  )}
                 </div>
 
                 {/* স্ট্যাটাস ব্যাজ */}
-                <div className="space-y-1 md:text-center">
+                <div className="space-y-1 md:text-center hidden sm:block">
                   <p className="text-[10px] text-gray-500 uppercase font-light tracking-wider hidden md:block">
                     Status
                   </p>
@@ -138,18 +150,16 @@ const AddtoCart = async () => {
                 </div>
               </div>
 
-              {/*  (View & Delete) */}
+              {/* রাইট সেকশন: (View & Delete) */}
               <div className="flex items-center gap-2 w-full md:w-auto shrink-0 md:pl-2">
-                {/* View Button */}
                 <Link
                   href={`/details/${item.productId}`}
-                  className="flex-1 md:flex-none px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-gray-200 text-xs font-medium rounded-lg transition-all duration-300 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer min-w-24"
+                  className="flex-1 md:flex-none px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-gray-200 text-xs font-medium rounded-lg transition-all duration-300 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer min-w-24 text-center"
                 >
                   <FaEye className="w-3.5 h-3.5 text-gray-400" />
                   Details
                 </Link>
 
-                {/* Delete Button Component */}
                 <DeleteCartButton itemId={item._id} />
               </div>
             </div>
