@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
                 <Link href="/cart">
                   <ShoppingCart className="cursor-pointer hover:text-gray-400 transition-colors duration-300" />
                 </Link>
-                <Link href="/profile">
+                <Link href="/dashboard/users/profile">
                   <Avatar>
                     <Avatar.Image
                       alt={user?.name || 'User Profile'}
