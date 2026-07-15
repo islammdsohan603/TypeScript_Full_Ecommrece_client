@@ -1,6 +1,7 @@
 'use client';
 
-import { Bars, Gear, House, Magnifier, Person } from '@gravity-ui/icons';
+import { Bars, House, Magnifier, Person } from '@gravity-ui/icons';
+import { MdOutlineWorkHistory } from 'react-icons/md';
 import { Button, Drawer } from '@heroui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -14,7 +15,11 @@ const DashboardSiderbar = () => {
     { icon: House, label: 'Overview', href: '/dashboard/users' },
     { icon: Magnifier, label: 'Add to Cart', href: '/dashboard/users/addcart' },
     { icon: Person, label: 'Profile', href: '/dashboard/users/profile' },
-    { icon: Gear, label: 'Settings', href: '/dashboard/settings' },
+    {
+      icon: MdOutlineWorkHistory,
+      label: 'Payment History',
+      href: '/payment/success',
+    },
   ];
 
   const navContent = (
