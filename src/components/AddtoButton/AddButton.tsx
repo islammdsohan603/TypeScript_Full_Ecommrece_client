@@ -11,7 +11,7 @@ interface ProductProps {
     price: number;
     discountPrice?: number;
     images: string;
-    stock: number;
+    stock?: number;
   };
 }
 

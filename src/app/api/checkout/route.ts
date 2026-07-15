@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     }));
 
     const origin =
-      process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
+      process.env.NEXT_PUBLIC_BETTER_AUTH_URL || 'http://localhost:3000';
 
     // স্ট্রাইপ চেকআউট সেশন তৈরি করা
     const session = await stripe.checkout.sessions.create({
