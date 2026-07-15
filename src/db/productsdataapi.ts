@@ -1,4 +1,3 @@
-import { string } from 'better-auth';
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 

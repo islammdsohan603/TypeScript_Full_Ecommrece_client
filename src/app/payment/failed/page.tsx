@@ -7,7 +7,7 @@ const PaymentFailed = () => {
     <div className="min-h-screen bg-[#050508] text-white flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-[#0d0e12]/60 border border-rose-900/30 rounded-2xl p-8 text-center backdrop-blur-md">
         <FaTimesCircle className="w-16 h-16 text-rose-500 mx-auto mb-4" />
-        <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300">
+        <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-linear-to-b from-white to-gray-300">
           Payment Failed!
         </h1>
         <p className="text-xs text-gray-500 mt-2 font-light">
@@ -23,7 +23,7 @@ const PaymentFailed = () => {
             Try Checkout Again
           </Link>
           <Link
-            href="/dashboard"
+            href="/dashboard/users"
             className="block w-full py-3 bg-gray-900 hover:bg-gray-800 text-gray-300 text-xs font-semibold rounded-xl transition-all duration-300"
           >
             Go to Dashboard

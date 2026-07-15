@@ -203,7 +203,7 @@ const AddtoCart = async () => {
 
           {/*right side */}
           <div className="w-full md:w-auto">
-            <Checkout />
+            <Checkout cartItems={cartData} />
           </div>
         </div>
       )}

@@ -44,6 +44,19 @@ body {
   }
 
 
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(200%);
+    }
+  }
+
+  .animate-\[shimmer_1\.4s_ease-in-out_infinite\] {
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+
   .Mask-Edges {
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);

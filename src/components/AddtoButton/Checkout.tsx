@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSession } from '@/lib/auth-client'; // 🌟 Better-Auth সেশন ইম্পোর্ট করা হলো
+import { useSession } from '@/lib/auth-client';
 
 interface CheckoutProps {
   // মেইন কার্ট পেজ থেকে পাস করা কার্ট লিস্ট ডাটা
   cartItems: Array<{
-    title: string; // আপনার ডাটাবেজের ফিল্ড অনুযায়ী title বা name ব্যবহার করুন
+    title: string;
     price: number;
     quantity: number;
     images: string;
@@ -72,7 +72,7 @@ const Checkout = ({ cartItems = [] }: CheckoutProps) => {
       <button
         onClick={handleCheckout}
         disabled={loading}
-        className="w-full md:w-auto inline-flex items-center justify-center bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs md:text-sm font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-orange-950/40 transition-all duration-300 active:scale-[0.98] cursor-pointer tracking-wide uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full md:w-auto inline-flex items-center justify-center bg-linear-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs md:text-sm font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-orange-950/40 transition-all duration-300 active:scale-[0.98] cursor-pointer tracking-wide uppercase disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? 'Processing Checkout...' : 'Proceed to Checkout ➔'}
       </button>
