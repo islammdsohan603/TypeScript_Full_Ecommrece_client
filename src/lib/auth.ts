@@ -14,6 +14,7 @@ const client = new MongoClient(mongoUri);
 const db = client.db('Ecommerce');
 
 export const auth = betterAuth({
+  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL || process.env.BETTER_AUTH_URL,
   database: mongodbAdapter(db, {
     client,
   }),
