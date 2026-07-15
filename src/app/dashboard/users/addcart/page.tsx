@@ -7,6 +7,7 @@ import { headers } from 'next/headers';
 import DeleteCartButton from '@/components/dashboard/DeleteCartButton';
 import { FaEye, FaShoppingBag } from 'react-icons/fa';
 import CartQuantityController from '@/components/dashboard/QuantityContraller';
+import Checkout from '@/components/AddtoButton/Checkout';
 
 const AddtoCart = async () => {
   const session = await auth.api.getSession({
@@ -202,12 +203,7 @@ const AddtoCart = async () => {
 
           {/*right side */}
           <div className="w-full md:w-auto">
-            <Link
-              href="/dashboard/users/checkout"
-              className="w-full md:w-auto inline-flex items-center justify-center bg-linear-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white text-xs md:text-sm font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-orange-950/40 transition-all duration-300 active:scale-[0.98] cursor-pointer tracking-wide uppercase"
-            >
-              Proceed to Checkout ➔
-            </Link>
+            <Checkout />
           </div>
         </div>
       )}
