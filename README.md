@@ -2,7 +2,8 @@
 
 # 🛍️ Luxury — Premium E-Commerce Frontend
 
-**A high-end, full-featured e-commerce storefront built with Next.js 16 & TypeScript**
+**A high-end, full-featured e-commerce storefront built with Next.js 16 &
+TypeScript**
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
@@ -17,44 +18,66 @@
 
 ## 📌 Project Overview
 
-**Luxury** is a dark-themed, premium e-commerce web application that provides a complete end-to-end shopping experience — from product discovery to secure Stripe checkout — with a focus on aesthetic quality and smooth user experience.
+**Luxury** is a dark-themed, premium e-commerce web application that provides a
+complete end-to-end shopping experience — from product discovery to secure
+Stripe checkout — with a focus on aesthetic quality and smooth user experience.
 
-> **Live Demo:** _(coming soon)_  
-> **Backend Repo:**  https://github.com/islammdsohan603/TypeScript_Projects_Ecommerce_server
+> **Live Demo:** https://ecommerceclient-coral.vercel.app/
+
+> **Backend Repo:**
+> https://github.com/islammdsohan603/TypeScript_Projects_Ecommerce_server
 
 ---
 
 ## ✨ Features
 
 ### 🛒 Shopping Experience
-- **Home Page** — Hero banner, featured products carousel, feature highlights, testimonials, FAQ accordion, and newsletter signup
-- **Product Catalog** — Paginated grid with real-time **category filtering** and **price sorting** (low → high / high → low)
-- **Product Detail Page** — Full product info with dynamic routing (`/details/[id]`)
-- **Add to Cart** — One-click cart addition with instant toast feedback; quantity auto-increments on duplicate
+
+- **Home Page** — Hero banner, featured products carousel, feature highlights,
+  testimonials, FAQ accordion, and newsletter signup
+- **Product Catalog** — Paginated grid with real-time **category filtering** and
+  **price sorting** (low → high / high → low)
+- **Product Detail Page** — Full product info with dynamic routing
+  (`/details/[id]`)
+- **Add to Cart** — One-click cart addition with instant toast feedback;
+  quantity auto-increments on duplicate
 
 ### 💳 Checkout & Payments
-- **Stripe Checkout** — Secure hosted payment page with real product data, images, and prices
-- **Success Page** — Dynamically verifies the payment, displays a full order receipt (item names, quantities, prices, payment date, session ID)
+
+- **Stripe Checkout** — Secure hosted payment page with real product data,
+  images, and prices
+- **Success Page** — Dynamically verifies the payment, displays a full order
+  receipt (item names, quantities, prices, payment date, session ID)
 - **Failed Page** — Clean error state with retry option
-- **Cart Auto-Cleared** — After a successful payment, the user's cart is automatically emptied
+- **Cart Auto-Cleared** — After a successful payment, the user's cart is
+  automatically emptied
 
 ### 👤 Authentication (Better Auth)
+
 - **Email & Password** sign-up / sign-in
 - **Google OAuth** one-click login
 - **GitHub OAuth** one-click login
-- Session-aware Navbar — avatar, dashboard link, and cart icon appear only when logged in
+- Session-aware Navbar — avatar, dashboard link, and cart icon appear only when
+  logged in
 
 ### 📊 User Dashboard
+
 - **Overview Stats** — Items in cart, total orders, account verification status
-- **Cart Management** — View all cart items with product images, dates, quantity controls (`+`/`–`), per-item total, and individual delete
+- **Cart Management** — View all cart items with product images, dates, quantity
+  controls (`+`/`–`), per-item total, and individual delete
 - **Profile Page** — User account details
 
 ### 🎨 UI & UX
-- **Dark luxury aesthetic** — Deep blacks, amber/orange accents, glassmorphism cards
-- **Navigation Loader** — YouTube-style top progress bar on every page transition
-- **Page-level Skeletons** — Shimmer loading states for Products and Dashboard pages
+
+- **Dark luxury aesthetic** — Deep blacks, amber/orange accents, glassmorphism
+  cards
+- **Navigation Loader** — YouTube-style top progress bar on every page
+  transition
+- **Page-level Skeletons** — Shimmer loading states for Products and Dashboard
+  pages
 - **Full-screen Loader** — Spinner overlay on initial data loads
-- **Fully Responsive** — Mobile drawer menu, responsive grids, touch-friendly controls
+- **Fully Responsive** — Mobile drawer menu, responsive grids, touch-friendly
+  controls
 - **Micro-animations** — Hover effects, pulse badges, animated carousels
 
 ---
@@ -173,10 +196,16 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
 ```
 
 > **How to get these keys:**
-> - **MongoDB URI** → [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) → Connect → Drivers → copy the connection string
-> - **Google OAuth** → [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials → Create OAuth Client (Web, redirect: `http://localhost:3000/api/auth/callback/google`)
-> - **GitHub OAuth** → [GitHub Settings](https://github.com/settings/developers) → New OAuth App (callback: `http://localhost:3000/api/auth/callback/github`)
-> - **Stripe Keys** → [Stripe Dashboard](https://dashboard.stripe.com/) → Developers → API Keys
+>
+> - **MongoDB URI** → [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) →
+>   Connect → Drivers → copy the connection string
+> - **Google OAuth** → [Google Cloud Console](https://console.cloud.google.com/)
+>   → APIs & Services → Credentials → Create OAuth Client (Web, redirect:
+>   `http://localhost:3000/api/auth/callback/google`)
+> - **GitHub OAuth** → [GitHub Settings](https://github.com/settings/developers)
+>   → New OAuth App (callback: `http://localhost:3000/api/auth/callback/github`)
+> - **Stripe Keys** → [Stripe Dashboard](https://dashboard.stripe.com/) →
+>   Developers → API Keys
 
 ### 4. Run the Development Server
 
@@ -186,7 +215,9 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-> ⚠️ **Make sure the backend server is also running** on port `5000` before testing checkout or product listings. See the [backend README](../server/README.md).
+> ⚠️ **Make sure the backend server is also running** on port `5000` before
+> testing checkout or product listings. See the
+> [backend README](../server/README.md).
 
 ---
 
@@ -204,38 +235,41 @@ Home → Browse Products → Product Detail → Add to Cart
 
 ## 🛠️ Tech Stack
 
-| Category | Technology |
-|----------|-----------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript 5 |
-| Styling | Tailwind CSS v4, DaisyUI, HeroUI |
-| Auth | Better Auth (Email, Google, GitHub) |
-| Payments | Stripe Checkout (hosted) |
-| Database | MongoDB Atlas (via Better Auth adapter) |
-| State | Redux Toolkit, React state |
-| Animations | CSS keyframes, Tailwind animations |
-| Icons | React Icons, Lucide React |
-| Notifications | React Toastify |
-| Fonts | Geist Sans, Geist Mono |
+| Category      | Technology                              |
+| ------------- | --------------------------------------- |
+| Framework     | Next.js 16 (App Router)                 |
+| Language      | TypeScript 5                            |
+| Styling       | Tailwind CSS v4, DaisyUI, HeroUI        |
+| Auth          | Better Auth (Email, Google, GitHub)     |
+| Payments      | Stripe Checkout (hosted)                |
+| Database      | MongoDB Atlas (via Better Auth adapter) |
+| State         | Redux Toolkit, React state              |
+| Animations    | CSS keyframes, Tailwind animations      |
+| Icons         | React Icons, Lucide React               |
+| Notifications | React Toastify                          |
+| Fonts         | Geist Sans, Geist Mono                  |
 
 ---
 
 ## 📝 Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start the development server |
-| `npm run build` | Create a production build |
-| `npm run start` | Start the production server |
-| `npm run lint` | Run ESLint |
+| Command         | Description                  |
+| --------------- | ---------------------------- |
+| `npm run dev`   | Start the development server |
+| `npm run build` | Create a production build    |
+| `npm run start` | Start the production server  |
+| `npm run lint`  | Run ESLint                   |
 
 ---
 
 ## 🌐 Environment Notes
 
-- All variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Never put secret keys there.
-- `STRIPE_SECRET_KEY` and `BETTER_AUTH_SECRET` must **never** be exposed client-side.
-- When deploying to production, replace all `localhost` URLs with your real domain.
+- All variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Never
+  put secret keys there.
+- `STRIPE_SECRET_KEY` and `BETTER_AUTH_SECRET` must **never** be exposed
+  client-side.
+- When deploying to production, replace all `localhost` URLs with your real
+  domain.
 
 ---
 
