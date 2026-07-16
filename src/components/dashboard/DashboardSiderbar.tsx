@@ -18,7 +18,7 @@ const DashboardSiderbar = () => {
     {
       icon: MdOutlineWorkHistory,
       label: 'Payment History',
-      href: '/payment/success',
+      href: '/dashboard/users/userpayment',
     },
   ];
 

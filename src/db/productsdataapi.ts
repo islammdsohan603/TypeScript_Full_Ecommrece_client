@@ -1,5 +1,7 @@
-
-const SERVER_URL = (process.env.NEXT_PUBLIC_SERVER_URL || '').replace(/\/+$/, '');
+const SERVER_URL = (process.env.NEXT_PUBLIC_SERVER_URL || '').replace(
+  /\/+$/,
+  '',
+);
 
 export interface Product {
   _id: string;
@@ -141,5 +143,26 @@ export const updateCartQuantityApi = async (
   } catch (error) {
     console.error('Error in updateCartQuantityApi:', error);
     throw error;
+  }
+};
+
+// user payments data
+
+export const getUersPayment = async (email: string) => {
+  try {
+    if (!email) return [];
+
+    const res = await fetch(`${SERVER_URL}/api/order/payment?email=${email}`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch payment orders');
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error('Error in getUersPayment:', error);
+    return [];
   }
 };
