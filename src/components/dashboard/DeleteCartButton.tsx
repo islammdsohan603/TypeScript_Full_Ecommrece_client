@@ -21,7 +21,7 @@ const DeleteCartButton = ({ itemId }: DeleteButtonProps) => {
 
     try {
       setIsDeleting(true);
-      const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+      const SERVER_URL = (process.env.NEXT_PUBLIC_SERVER_URL || '').replace(/\/+$/, '');
 
       const res = await fetch(`${SERVER_URL}/api/cart/delete/${itemId}`, {
         method: 'DELETE',

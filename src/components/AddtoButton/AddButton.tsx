@@ -34,7 +34,7 @@ const AddButton = ({ product }: ProductProps) => {
       const finalPrice = product.discountPrice || product.price;
 
       // ৩. ব্যাকএন্ড এপিআই-তে ডেটা পাঠানো
-      const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+      const SERVER_URL = (process.env.NEXT_PUBLIC_SERVER_URL || '').replace(/\/+$/, '');
       const res = await fetch(`${SERVER_URL}/api/cart/add`, {
         method: 'POST',
         headers: {

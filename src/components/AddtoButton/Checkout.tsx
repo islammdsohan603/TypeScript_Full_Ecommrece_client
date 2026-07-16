@@ -35,7 +35,7 @@ const Checkout = ({ cartItems = [] }: CheckoutProps) => {
       setLoading(true);
 
       const SERVER_URL =
-        process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:5000';
+        (process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:5000').replace(/\/+$/, '');
 
       // ৩. ব্যাকএন্ড এপিআই-তে রিকোয়েস্ট পাঠানো
       const res = await fetch(`${SERVER_URL}/api/create-checkout-session`, {

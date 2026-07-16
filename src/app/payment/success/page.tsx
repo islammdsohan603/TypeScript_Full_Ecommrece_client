@@ -44,7 +44,7 @@ const PaymentSuccess = () => {
 
     try {
       const SERVER_URL =
-        process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:5000';
+        (process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:5000').replace(/\/+$/, '');
 
       const res = await fetch(`${SERVER_URL}/api/verify-payment`, {
         method: 'POST',
